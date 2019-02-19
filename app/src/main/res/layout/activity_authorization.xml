@@ -9,7 +9,7 @@
 
     <fragment android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/container" android:name="com.example.myapplication.activities.fragments.LoginFragment"
+              android:id="@+id/container" android:name="com.example.myapplication.activities.fragments.authorization.LoginFragment"
               tools:layout="@layout/fragment_login"
               app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"

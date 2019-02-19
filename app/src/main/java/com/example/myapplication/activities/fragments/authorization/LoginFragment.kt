@@ -1,4 +1,4 @@
-package com.example.myapplication.activities.fragments
+package com.example.myapplication.activities.fragments.authorization
 
 
 import android.os.Bundle
@@ -28,7 +28,9 @@ class LoginFragment : Fragment() {
 
     private fun initListener() {
         tvRegistrationFromLogin.setOnClickListener {
-            fragmentManager!!.beginTransaction().replace(R.id.container, RegistrationFragment()).commit()
+            fragmentManager!!.beginTransaction().replace(R.id.container,
+                RegistrationFragment()
+            ).commit()
         }
     }
 }

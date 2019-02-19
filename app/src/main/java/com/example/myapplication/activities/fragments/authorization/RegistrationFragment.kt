@@ -1,4 +1,4 @@
-package com.example.myapplication.activities.fragments
+package com.example.myapplication.activities.fragments.authorization
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.myapplication.R
+import kotlinx.android.synthetic.main.fragment_registration.*
 
 class RegistrationFragment : Fragment() {
     override fun onCreateView(
@@ -16,5 +17,19 @@ class RegistrationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initListener()
+    }
+
+    private fun initListener() {
+        tvLoginFromRegistration.setOnClickListener {
+            fragmentManager!!.beginTransaction().replace(R.id.container,
+                LoginFragment()
+            ).commit()
+        }
     }
 }
