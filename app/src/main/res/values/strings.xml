@@ -3,4 +3,7 @@
     <string name="create_an_account">Create an account</string>
     <string name="login">Login</string>
     <string name="social_network">Social network</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
