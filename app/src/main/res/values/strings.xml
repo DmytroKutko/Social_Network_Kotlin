@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Social network</string>
     <string name="create_an_account">Create an account</string>
     <string name="login">Login</string>
     <string name="social_network">Social network</string>
