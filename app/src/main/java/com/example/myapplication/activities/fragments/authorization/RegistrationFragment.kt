@@ -22,8 +22,8 @@ import java.util.*
 class RegistrationFragment : Fragment() {
 
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var storage: FirebaseStorage
     private lateinit var db: FirebaseDatabase
+    val TAG = "Main_Register"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,6 @@ class RegistrationFragment : Fragment() {
 
     private fun setInitialData() {
         mAuth = FirebaseAuth.getInstance()
-        storage = FirebaseStorage.getInstance()
         db = FirebaseDatabase.getInstance()
     }
 
@@ -61,7 +60,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun selectPhoto() {
-        var intent = Intent(
+        val intent = Intent(
             Intent.ACTION_PICK,
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
@@ -94,6 +93,7 @@ class RegistrationFragment : Fragment() {
 
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
+                Log.d(TAG,"Success create profile")
                 uploadImageToFirebase()
             }
     }
@@ -116,13 +116,17 @@ class RegistrationFragment : Fragment() {
         }
 
         val filename = UUID.randomUUID().toString()
-        val imgStorage = storage.getReference("/images/$filename")
+        val storage = FirebaseStorage.getInstance().getReference("/images/$filename")
 
-        imgStorage.putFile(selectedPhotoUri!!)
+        storage.putFile(selectedPhotoUri!!)
             .addOnSuccessListener {
-                imgStorage.downloadUrl.addOnSuccessListener {
+                Log.d(TAG, "image successfully uploaded: ${it.metadata!!.path}")
+                storage.downloadUrl.addOnSuccessListener {
                     saveUserToFirebaseDatabase(it.toString())
                 }
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "Fail image upload")
             }
     }
 
@@ -140,7 +144,7 @@ class RegistrationFragment : Fragment() {
                 setLoginFragment()
             }
             .addOnFailureListener {
-                Log.d("Main saveUser", "Fail to save user into database")
+                Log.d(TAG, "Fail to save user into database")
             }
     }
 }

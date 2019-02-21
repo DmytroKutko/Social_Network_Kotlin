@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class UserProfileFragment : Fragment() {
@@ -32,9 +33,22 @@ class UserProfileFragment : Fragment() {
 
         db = FirebaseDatabase.getInstance()
         mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
-        user?.let {
-            tvUserFirstname.text = user.email
-        }
+        val userId = mAuth.currentUser?.uid
+
+        val userRef = db.getReference("/users/$userId")
+
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val user = p0.getValue(User::class.java)
+                if (user != null) {
+                    tvUserProfileFirstname.text = user.firstname
+                    tvUserProfileLastname.text = user.lastname
+                    Picasso.get().load(user.profileImage).into(civUserProfileImage)
+                }
+            }
+        })
     }
 }
