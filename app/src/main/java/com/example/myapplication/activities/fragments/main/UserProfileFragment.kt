@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class UserProfileFragment : Fragment() {
 
@@ -28,6 +29,9 @@ class UserProfileFragment : Fragment() {
 
         db = FirebaseDatabase.getInstance()
         mAuth = FirebaseAuth.getInstance()
+        val userRef = mAuth.currentUser?.uid
+
+        textView2.text
     }
 
 }

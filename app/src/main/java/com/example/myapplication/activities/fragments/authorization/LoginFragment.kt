@@ -7,13 +7,16 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.Toast
 import com.example.myapplication.R
-import com.example.myapplication.activities.AuthorizationActivity
 import com.example.myapplication.activities.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
+
+    lateinit var mAuth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +28,13 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setInitialData()
         initListener()
 
+    }
+
+    private fun setInitialData() {
+        mAuth = FirebaseAuth.getInstance()
     }
 
     private fun initListener() {
@@ -38,7 +46,21 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(activity, MainActivity::class.java))
+            loginUser()
         }
+    }
+
+    private fun loginUser() {
+
+        val email = etLoginEmail.text.toString()
+        val password = etLoginPassword.text.toString()
+
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                startActivity(Intent(activity, MainActivity::class.java))
+            }
+            .addOnFailureListener {
+                Toast.makeText(activity, "Wrong email/password",Toast.LENGTH_SHORT).show()
+            }
     }
 }

@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.myapplication.R
-import com.example.myapplication.activities.AuthorizationActivity
 import com.example.myapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -62,8 +61,10 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun selectPhoto() {
-        var intent = Intent(Intent.ACTION_PICK)
-        intent.type = "/image/*"
+        var intent = Intent(
+            Intent.ACTION_PICK,
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
         startActivityForResult(intent, 0)
     }
 
@@ -81,7 +82,7 @@ class RegistrationFragment : Fragment() {
         val password = etRegisterPassword.text.toString()
         val passwordVerify = etRegisterPasswordVerification.text.toString()
 
-        if (!password.equals(passwordVerify)) {
+        if (password != passwordVerify) {
             Toast.makeText(activity, "Passwords is not the same", Toast.LENGTH_SHORT).show()
             return
         }
