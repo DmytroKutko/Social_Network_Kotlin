@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
                 startActivity(Intent(activity, MainActivity::class.java))
             }
             .addOnFailureListener {
-                Toast.makeText(activity, "Wrong email/password",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Wrong email/password", Toast.LENGTH_SHORT).show()
             }
     }
 }
