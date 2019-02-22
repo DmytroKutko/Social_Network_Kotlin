@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:name="com.example.myapplication.activities.fragments.authorization.LoginFragment"
-            tools:layout="@layout/emptyfragment"/>
+            android:name="com.example.myapplication.activities.fragments.authorization.EmptyFragment"
+            tools:layout="@layout/fragment_empty"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -52,6 +52,14 @@ class PeoplesFragment : Fragment() {
                     adapter.add(UserItem(user!!))
                 }
 
+                adapter.setOnItemClickListener { item, view ->
+                    fragmentManager!!
+                        .beginTransaction()
+                        .replace(R.id.main_container, ChatLogFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+
                 rvPeoples.adapter = adapter
             }
 

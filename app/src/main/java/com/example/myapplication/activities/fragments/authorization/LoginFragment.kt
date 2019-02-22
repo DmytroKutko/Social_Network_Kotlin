@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
+
     lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -57,7 +58,7 @@ class LoginFragment : Fragment() {
 
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                startActivity(Intent(activity, MainActivity::class.java))
+                activity!!.startActivity(Intent(this.context, MainActivity::class.java))
             }
             .addOnFailureListener {
                 Toast.makeText(activity, "Wrong email/password", Toast.LENGTH_SHORT).show()
