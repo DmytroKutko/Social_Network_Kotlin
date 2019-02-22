@@ -1,9 +1,9 @@
-package com.example.myapplication.activities
+package com.example.myapplication.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.myapplication.R
-import com.example.myapplication.activities.fragments.authorization.LoginFragment
+import com.example.myapplication.view.fragments.authorization.LoginFragment
 
 class AuthorizationActivity : AppCompatActivity() {
 

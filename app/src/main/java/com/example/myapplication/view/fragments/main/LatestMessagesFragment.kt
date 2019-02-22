@@ -1,4 +1,4 @@
-package com.example.myapplication.activities.fragments.main
+package com.example.myapplication.view.fragments.main
 
 
 import android.os.Bundle
@@ -9,14 +9,14 @@ import android.view.ViewGroup
 
 import com.example.myapplication.R
 
-class GalleryFragment : Fragment() {
+class LatestMessagesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_latest_messages, container, false)
     }
 
 

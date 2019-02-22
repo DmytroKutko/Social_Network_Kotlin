@@ -1,6 +1,5 @@
-package com.example.myapplication.activities
+package com.example.myapplication.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -8,11 +7,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.myapplication.R
-import com.example.myapplication.activities.fragments.main.SettingsFragment
-import com.example.myapplication.activities.fragments.main.GalleryFragment
-import com.example.myapplication.activities.fragments.main.LatestMessagesFragment
-import com.example.myapplication.activities.fragments.main.PeoplesFragment
-import com.example.myapplication.activities.fragments.main.UserProfileFragment
+import com.example.myapplication.view.fragments.main.SettingsFragment
+import com.example.myapplication.view.fragments.main.GalleryFragment
+import com.example.myapplication.view.fragments.main.LatestMessagesFragment
+import com.example.myapplication.view.fragments.main.PeoplesFragment
+import com.example.myapplication.view.fragments.main.UserProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*

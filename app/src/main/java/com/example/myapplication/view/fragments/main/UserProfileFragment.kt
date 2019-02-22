@@ -1,4 +1,4 @@
-package com.example.myapplication.activities.fragments.main
+package com.example.myapplication.view.fragments.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

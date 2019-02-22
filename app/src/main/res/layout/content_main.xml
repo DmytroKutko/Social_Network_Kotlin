@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_main"
-        tools:context=".activities.MainActivity">
+        tools:context=".view.MainActivity">
 
     <fragment
             android:layout_width="0dp"
@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:name="com.example.myapplication.activities.fragments.authorization.EmptyFragment"
+            android:name="com.example.myapplication.view.fragments.authorization.EmptyFragment"
             tools:layout="@layout/fragment_empty"/>
 
 </android.support.constraint.ConstraintLayout>

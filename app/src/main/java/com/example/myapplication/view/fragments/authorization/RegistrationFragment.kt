@@ -1,4 +1,4 @@
-package com.example.myapplication.activities.fragments.authorization
+package com.example.myapplication.view.fragments.authorization
 
 
 import android.content.Intent

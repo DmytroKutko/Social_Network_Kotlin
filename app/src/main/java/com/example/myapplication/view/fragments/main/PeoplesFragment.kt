@@ -1,12 +1,13 @@
-package com.example.myapplication.activities.fragments.main
+package com.example.myapplication.view.fragments.main
 
 
+import android.app.AliasActivity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.example.myapplication.R
 import com.example.myapplication.adapter.UserItem
 import com.example.myapplication.model.User
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_peoples.*
+
 
 class PeoplesFragment : Fragment() {
 
@@ -49,15 +51,26 @@ class PeoplesFragment : Fragment() {
                 p0.children.forEach {
                     val user = it.getValue(User::class.java)
                     if (user?.uid != mAuth?.uid)
-                    adapter.add(UserItem(user!!))
+                        adapter.add(UserItem(user!!))
                 }
 
                 adapter.setOnItemClickListener { item, view ->
-                    fragmentManager!!
-                        .beginTransaction()
-                        .replace(R.id.main_container, ChatLogFragment())
-                        .addToBackStack(null)
+
+                    val peoplesFrag = activity!!.supportFragmentManager.beginTransaction()
+                    val chatLogFrag = ChatLogFragment()
+
+                    val bundle = Bundle()
+                    val userItem = item as UserItem
+
+                    bundle
+                        .putSerializable("User", userItem.user)
+
+                    chatLogFrag
+                        .arguments = bundle
+
+                    peoplesFrag.replace(R.id.main_container, chatLogFrag)
                         .commit()
+
                 }
 
                 rvPeoples.adapter = adapter

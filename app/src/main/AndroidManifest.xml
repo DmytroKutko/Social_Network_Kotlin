@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".activities.MainActivity"
+                android:name=".view.MainActivity"
                 android:label="@string/title_activity_main2"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AuthorizationActivity">
+        <activity android:name=".view.AuthorizationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
