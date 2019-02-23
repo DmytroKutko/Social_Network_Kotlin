@@ -13,10 +13,7 @@ import com.example.myapplication.adapter.ChatItemTo
 import com.example.myapplication.model.ChatMessage
 import com.example.myapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_chat_log.*
@@ -25,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_chat_log.*
 class ChatLogFragment : Fragment() {
 
     lateinit var adapter: GroupAdapter<ViewHolder>
+    lateinit var toUser: User
+    lateinit var currentUser: User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +38,22 @@ class ChatLogFragment : Fragment() {
 
         setTitle()
         setInitialData()
-//        chatDummyData()
         messageListener()
         initListener()
+    }
+
+    private fun setTitle() {
+        val bundle = arguments
+        val user = bundle!!.getSerializable("User") as User
+        activity!!.title = user.firstname
+    }
+
+    private fun setInitialData() {
+        fetchCurrentUser()
+        adapter = GroupAdapter()
+        rvChatLogMessages.adapter = adapter
+        val bundle = arguments
+        toUser = bundle!!.getSerializable("User") as User
     }
 
     private fun messageListener() {
@@ -51,9 +63,9 @@ class ChatLogFragment : Fragment() {
                 val message = p0.getValue(ChatMessage::class.java)
                 if (message != null) {
                     if (message.fromid == FirebaseAuth.getInstance().uid) {
-                        adapter.add(ChatItemFrom(message.text))
+                        adapter.add(ChatItemFrom(message, currentUser))
                     } else {
-                        adapter.add(ChatItemTo(message.text))
+                        adapter.add(ChatItemTo(message, toUser))
                     }
                 }
             }
@@ -71,11 +83,6 @@ class ChatLogFragment : Fragment() {
             }
 
         })
-    }
-
-    private fun setInitialData() {
-        adapter = GroupAdapter()
-        rvChatLogMessages.adapter = adapter
     }
 
     private fun initListener() {
@@ -102,17 +109,15 @@ class ChatLogFragment : Fragment() {
             }
     }
 
-    private fun setTitle() {
-        val bundle = arguments
-        val user = bundle!!.getSerializable("User") as User
-        activity!!.title = user.firstname
-    }
-
-    private fun chatDummyData() {
-        adapter.add(ChatItemTo("Hi"))
-        adapter.add(ChatItemFrom("Hello"))
-        adapter.add(ChatItemTo("Message 1"))
-        adapter.add(ChatItemTo("Second\nmessage"))
-        adapter.add(ChatItemFrom("Last\ntext\nmessage"))
+    private fun fetchCurrentUser() {
+        val uid = FirebaseAuth.getInstance().uid
+        val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                currentUser = p0.getValue(User::class.java)!!
+            }
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
     }
 }

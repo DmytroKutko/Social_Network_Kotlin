@@ -8,6 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.myapplication.R
+import com.example.myapplication.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class LatestMessagesFragment : Fragment() {
 
@@ -19,5 +25,7 @@ class LatestMessagesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_latest_messages, container, false)
     }
 
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 }
