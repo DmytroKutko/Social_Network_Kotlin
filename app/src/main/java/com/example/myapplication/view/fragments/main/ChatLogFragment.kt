@@ -57,7 +57,9 @@ class ChatLogFragment : Fragment() {
     }
 
     private fun messageListener() {
-        val messageRef = FirebaseDatabase.getInstance().getReference("/messages")
+        val fromId = FirebaseAuth.getInstance().uid
+        val toId = toUser.uid
+        val messageRef = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
         messageRef.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val message = p0.getValue(ChatMessage::class.java)
@@ -93,20 +95,20 @@ class ChatLogFragment : Fragment() {
     }
 
     private fun performSendMessage() {
-        val messageRef = FirebaseDatabase.getInstance().getReference("/messages").push()
         val text = etChatLogMessage.text.toString()
         val fromId = FirebaseAuth.getInstance().uid
-        val bundle = arguments
-        val user = bundle!!.getSerializable("User") as User
-        val toId = user.uid
+        val toId = toUser.uid
+        val messageRefFrom = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+        val messageRefTo = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
         if (fromId == null) return
 
-        val chatMessage = ChatMessage(messageRef.key!!, text, fromId, toId, System.currentTimeMillis())
-        messageRef.setValue(chatMessage)
-            .addOnCompleteListener {
-                Log.d("ChatLog", messageRef.key)
+        val chatMessage = ChatMessage(messageRefFrom.key!!, text, fromId, toId, System.currentTimeMillis())
+        messageRefFrom.setValue(chatMessage)
+            .addOnSuccessListener {
+                rvChatLogMessages.scrollToPosition(adapter.itemCount - 1)
             }
+        messageRefTo.setValue(chatMessage)
     }
 
     private fun fetchCurrentUser() {
@@ -116,6 +118,7 @@ class ChatLogFragment : Fragment() {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)!!
             }
+
             override fun onCancelled(p0: DatabaseError) {
             }
         })
