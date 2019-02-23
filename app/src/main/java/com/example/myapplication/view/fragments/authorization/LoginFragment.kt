@@ -32,6 +32,13 @@ class LoginFragment : Fragment() {
         setInitialData()
         initListener()
 
+        // for faster login (testing function)
+        setLoginAndPassword()
+    }
+
+    private fun setLoginAndPassword() {
+        etLoginEmail.setText("user0@gmail.com")
+        etLoginPassword.setText("123123")
     }
 
     private fun setInitialData() {
