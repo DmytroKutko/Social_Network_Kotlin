@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText" android:layout_marginStart="8dp"
+            android:id="@+id/etChatLogMessage" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/btnSendMessage" android:background="@drawable/rounded_edittext"

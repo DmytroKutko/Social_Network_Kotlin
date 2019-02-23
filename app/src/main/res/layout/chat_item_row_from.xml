@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:paddingTop="8dp" android:paddingBottom="8dp">
+        android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civChatItemPhotoFrom"
@@ -14,13 +14,13 @@
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/ic_person"/>
     <TextView
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc vel risus commodo viverra maecenas accumsan. Scelerisque varius morbi enim nunc faucibus. Fringilla urna porttitor rhoncus dolor purus non. "
             android:layout_width="200dp"
             android:layout_height="wrap_content" android:id="@+id/tvChatItemMessageFrom"
             app:layout_constraintTop_toTopOf="@+id/civChatItemPhotoFrom"
-            app:layout_constraintStart_toEndOf="@+id/civChatItemPhotoFrom" android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/civChatItemPhotoFrom" android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/civChatItemPhotoFrom"
             android:background="@drawable/rounded_message" android:paddingLeft="8dp" android:paddingRight="8dp"
-            android:paddingTop="8dp" android:paddingBottom="8dp"/>
+            android:paddingTop="8dp" android:paddingBottom="8dp" android:textSize="18sp"
+            app:layout_constraintVertical_bias="1.0"/>
 
 </android.support.constraint.ConstraintLayout>

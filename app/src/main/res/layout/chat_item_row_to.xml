@@ -3,8 +3,8 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
-                                             android:layout_height="wrap_content" android:paddingTop="8dp"
-                                             android:paddingBottom="8dp">
+                                             android:layout_height="wrap_content"
+>
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civChatItemPhotoTo"
             android:layout_width="50dp"
@@ -12,7 +12,6 @@
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" android:background="@drawable/ic_person"/>
     <TextView
-            android:text="Auctor augue mauris augue neque gravida in fermentum et sollicitudin."
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvChatItemMessageTo" app:layout_constraintEnd_toStartOf="@+id/civChatItemPhotoTo"
@@ -20,5 +19,7 @@
             android:paddingTop="8dp" android:paddingBottom="8dp"
             app:layout_constraintTop_toTopOf="@+id/civChatItemPhotoTo"
             app:layout_constraintBottom_toBottomOf="@+id/civChatItemPhotoTo" android:paddingLeft="8dp"
-            android:paddingRight="8dp" android:layout_marginEnd="4dp"/>
+            android:paddingRight="8dp" android:layout_marginEnd="12dp" android:textSize="18sp"
+            app:layout_constraintVertical_bias="1.0"
+    />
 </android.support.constraint.ConstraintLayout>
