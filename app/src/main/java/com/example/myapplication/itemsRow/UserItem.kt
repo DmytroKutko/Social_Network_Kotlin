@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter
+package com.example.myapplication.itemsRow
 
 import com.example.myapplication.R
 import com.example.myapplication.model.User

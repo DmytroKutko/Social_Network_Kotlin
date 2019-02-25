@@ -1,15 +1,13 @@
 package com.example.myapplication.view.fragments.main
 
 
-import android.app.AliasActivity
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
-import com.example.myapplication.adapter.UserItem
+import com.example.myapplication.itemsRow.UserItem
 import com.example.myapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -23,8 +21,9 @@ import kotlinx.android.synthetic.main.fragment_peoples.*
 
 class PeoplesFragment : Fragment() {
 
-    private var db: FirebaseDatabase? = null
-    private var mAuth: FirebaseAuth? = null
+    var db: FirebaseDatabase? = null
+    var mAuth: FirebaseAuth? = null
+    var adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +45,6 @@ class PeoplesFragment : Fragment() {
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
 
-                val adapter = GroupAdapter<ViewHolder>()
 
                 p0.children.forEach {
                     val user = it.getValue(User::class.java)

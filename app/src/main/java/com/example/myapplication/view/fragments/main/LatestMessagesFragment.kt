@@ -6,16 +6,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.example.myapplication.R
-import com.example.myapplication.model.User
-import com.google.firebase.auth.FirebaseAuth
+import com.example.myapplication.itemsRow.LatestMessage
+import com.example.myapplication.model.ChatMessage
+import com.example.myapplication.view.MainActivity.Companion.currentUser
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.fragment_latest_messages.*
 
 class LatestMessagesFragment : Fragment() {
+
+    lateinit var adapter: GroupAdapter<ViewHolder>
+    var latestMessageMap = HashMap<String, ChatMessage>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,5 +33,52 @@ class LatestMessagesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        setTitle()
+        initRecyclerView()
+        latestMessagesListener()
     }
+
+    private fun setTitle() {
+        activity?.title = "Latest messages"
+    }
+
+    private fun initRecyclerView() {
+        adapter = GroupAdapter()
+        rvLatestMessages.adapter = adapter
+    }
+
+    private fun latestMessagesListener() {
+        val fromId = currentUser?.uid
+        val messageRef = FirebaseDatabase.getInstance().getReference("/latest_messages/$fromId")
+        messageRef.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
+                latestMessageMap[p0.key!!] = chatMessage
+                refreshAdapter()
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
+                adapter.add(LatestMessage(chatMessage))
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+            }
+        })
+    }
+
+    private fun refreshAdapter() {
+        adapter.clear()
+        latestMessageMap.forEach {
+            adapter.add(LatestMessage(it.value))
+        }
+    }
+
 }
