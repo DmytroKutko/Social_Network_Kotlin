@@ -3,11 +3,13 @@ package com.example.myapplication.view.fragments.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
 import com.example.myapplication.itemsRow.LatestMessage
+import com.example.myapplication.itemsRow.UserItem
 import com.example.myapplication.model.ChatMessage
 import com.example.myapplication.view.MainActivity.Companion.currentUser
 import com.google.firebase.database.ChildEventListener
@@ -36,7 +38,27 @@ class LatestMessagesFragment : Fragment() {
 
         setTitle()
         initRecyclerView()
+        initListener()
         latestMessagesListener()
+    }
+
+    private fun initListener() {
+        adapter.setOnItemClickListener { item, view ->
+            val latestMessagesFrag = activity!!.supportFragmentManager.beginTransaction()
+            val chatLogFrag = ChatLogFragment()
+
+            val bundle = Bundle()
+            val row = item as LatestMessage
+
+            bundle
+                .putSerializable("User", row.chatPartnerUser)
+
+            chatLogFrag
+                .arguments = bundle
+
+            latestMessagesFrag.replace(R.id.main_container, chatLogFrag)
+                .commit()
+        }
     }
 
     private fun setTitle() {
@@ -46,6 +68,7 @@ class LatestMessagesFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = GroupAdapter()
         rvLatestMessages.adapter = adapter
+        rvLatestMessages.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
     private fun latestMessagesListener() {

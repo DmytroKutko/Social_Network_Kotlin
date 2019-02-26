@@ -72,6 +72,7 @@ class ChatLogFragment : Fragment() {
                         adapter.add(ChatItemTo(message, toUser))
                     }
                 }
+                rvChatLogMessages.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
