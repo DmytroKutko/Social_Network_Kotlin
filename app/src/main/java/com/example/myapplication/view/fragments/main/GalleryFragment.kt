@@ -4,6 +4,7 @@ package com.example.myapplication.view.fragments.main
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,8 +40,10 @@ class GalleryFragment : Fragment() {
         val imagesRef = FirebaseDatabase.getInstance().getReference("/images")
         imagesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val image = p0.getValue(Image::class.java) ?: return
-                adapter!!.add(ImageItem(image))
+                p0.children.forEach {
+                    val image = it.getValue(Image::class.java) ?: return
+                    adapter!!.add(ImageItem(image))
+                }
             }
 
             override fun onCancelled(p0: DatabaseError) {

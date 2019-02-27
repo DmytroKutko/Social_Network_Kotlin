@@ -15,6 +15,10 @@ class ImageItem(val image: Image) : Item<ViewHolder>() {
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        Picasso.get().load(image.url).into(viewHolder.itemView.ivGalleryItem)
+        Picasso.get()
+            .load(image.url)
+            .resize(500, 500)
+            .centerCrop()
+            .into(viewHolder.itemView.ivGalleryItem)
     }
 }
