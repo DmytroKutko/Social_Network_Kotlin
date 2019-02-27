@@ -7,9 +7,10 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.example.myapplication.R
 import com.example.myapplication.itemsRow.ImageItem
+import com.example.myapplication.model.Image
+import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_gallery.*
@@ -33,25 +34,24 @@ class GalleryFragment : Fragment() {
         loadImagesFromFirebase()
     }
 
-    private fun loadImagesFromFirebase() {
 
+    private fun loadImagesFromFirebase() {
+        val imagesRef = FirebaseDatabase.getInstance().getReference("/images")
+        imagesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val image = p0.getValue(Image::class.java) ?: return
+                adapter!!.add(ImageItem(image))
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
     }
 
     private fun setInitialData() {
         activity?.title = "Gallery"
         adapter = GroupAdapter()
-        setDummyImages()
         rvGallery.adapter = adapter
         rvGallery.layoutManager = GridLayoutManager(activity, 3)
     }
-
-    private fun setDummyImages() {
-        adapter?.add(ImageItem())
-        adapter?.add(ImageItem())
-        adapter?.add(ImageItem())
-        adapter?.add(ImageItem())
-        adapter?.add(ImageItem())
-    }
-
-
 }

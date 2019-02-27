@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.myapplication.R
+import com.example.myapplication.model.Image
 import com.example.myapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -93,7 +94,7 @@ class RegistrationFragment : Fragment() {
 
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                Log.d(TAG,"Success create profile")
+                Log.d(TAG, "Success create profile")
                 uploadImageToFirebase()
             }
     }
@@ -136,6 +137,10 @@ class RegistrationFragment : Fragment() {
 
         val firstname = etRegisterFirstname.text.toString()
         val lastname = etRegisterLastname.text.toString()
+
+        val imagesDatabase = FirebaseDatabase.getInstance().getReference("/images").push()
+        val imageGallery = Image(profileImageUrl, System.currentTimeMillis())
+        imagesDatabase.setValue(imageGallery)
 
         val user = User(uid, firstname, lastname, profileImageUrl)
         userRef.setValue(user)
