@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
 import com.example.myapplication.itemsRow.LatestMessage
-import com.example.myapplication.itemsRow.UserItem
 import com.example.myapplication.model.ChatMessage
 import com.example.myapplication.view.MainActivity.Companion.currentUser
 import com.google.firebase.database.ChildEventListener
